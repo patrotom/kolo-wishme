@@ -1,0 +1,29 @@
+name: wishme
+
+services:
+  wishme:
+    image: wishme
+    env_file: .env
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "8000:8000"
+    volumes:
+      - .:/wishme
+    depends_on:
+      - db
+    environment:
+      - DB_USERNAME=postgres
+      - DB_PASSWORD=postgres
+      - DB_HOSTNAME=db
+      - DB_PORT=5432
+      - DB_NAME=wishme
+  db:
+    image: postgres:15
+    ports:
+      - "5432:5432"
+    environment:
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_USER=postgres
+      - POSTGRES_DB=wishme

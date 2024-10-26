@@ -1,0 +1,26 @@
+# git
+.git
+.gitignore
+
+# CI
+.pre-commit-config.yaml
+
+# Docker
+docker-compose.yml
+Dockerfile
+.dockerignore
+
+# Cache
+**/__pycache__/
+
+# Virtual environment
+.venv/
+
+# VS Code
+.vscode/
+
+# Ruff
+.ruff_cache/
+
+# Docs
+README.md
