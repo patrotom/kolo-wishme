@@ -69,7 +69,7 @@ def get_token_payload(token: str) -> dict[str, Any]:
         raise ResponseHandler.invalid_token("access")
 
 
-def get_current_user(token: str) -> int:
+def get_current_user(token: HTTPAuthorizationCredentials) -> int:
     user = get_token_payload(token.credentials)
     return user.get("id")
 

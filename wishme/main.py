@@ -1,6 +1,13 @@
 from fastapi import FastAPI
 
-from wishme.api.routers import auth_router, accounts_router, products_router, wishes_router
+from wishme.api.routers import (
+    auth_router,
+    accounts_router,
+    products_router,
+    wishes_router,
+    users_router,
+    organizations_router,
+)
 
 
 app = FastAPI(
@@ -21,3 +28,5 @@ app.include_router(auth_router)
 app.include_router(accounts_router)
 app.include_router(products_router)
 app.include_router(wishes_router)
+app.include_router(users_router)
+app.include_router(organizations_router)

@@ -1,14 +1,13 @@
 from sqlalchemy.orm import Session
 from fastapi import APIRouter, Depends, Query, status
-from fastapi.security import HTTPBearer
 from fastapi.security.http import HTTPAuthorizationCredentials
 
 from wishme.db.database import get_db
+from wishme.core.security import auth_scheme
 from wishme.services.wishes_service import WishService
 from wishme.schemas.wishes import WishCreate, WishUpdate, WishOut, WishOutDelete, WishesOutList
 
 router = APIRouter(tags=["Wishes"], prefix="/wishes")
-auth_scheme = HTTPBearer()
 
 
 # Get All Wishes
@@ -19,7 +18,7 @@ def get_all_wishes(
     limit: int = Query(10, ge=1, le=100, description="Items per page"),
     token: HTTPAuthorizationCredentials = Depends(auth_scheme),
 ) -> dict:
-    return WishService.get_all_carts(token, db, page, limit)
+    return WishService.get_all_wishes(token, db, page, limit)
 
 
 # Get Wish By User ID
@@ -27,7 +26,7 @@ def get_all_wishes(
 def get_wish(
     wish_id: int, db: Session = Depends(get_db), token: HTTPAuthorizationCredentials = Depends(auth_scheme)
 ) -> dict:
-    return WishService.get_cart(token, db, wish_id)
+    return WishService.get_wish(token, db, wish_id)
 
 
 # Create New Wish
