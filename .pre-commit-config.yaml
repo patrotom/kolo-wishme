@@ -36,4 +36,4 @@ repos:
       hooks:
         - id: flake8
           exclude: ^test/
-          args: [--max-line-length=120]
+          args: [--max-line-length=120, "--ignore=E701"]

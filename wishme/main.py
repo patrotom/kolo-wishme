@@ -1,5 +1,7 @@
 from fastapi import FastAPI
 
+from wishme.api.routers import auth_router, accounts_router, products_router, wishes_router
+
 
 app = FastAPI(
     description="WishMe API",
@@ -11,6 +13,11 @@ app = FastAPI(
         "layout": "BaseLayout",
         "filter": True,
         "tryItOutEnabled": True,
-        "onComplete": "Ok"
+        "onComplete": "Ok",
     },
 )
+
+app.include_router(auth_router)
+app.include_router(accounts_router)
+app.include_router(products_router)
+app.include_router(wishes_router)

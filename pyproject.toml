@@ -8,11 +8,14 @@ readme = "README.md"
 [tool.poetry.dependencies]
 python = "^3.11"
 fastapi = "^0.115.2"
-pydantic = "^2.9.2"
+pydantic = {"version" = "^2.9.2", extras = ["email"]}
+python-multipart = "0.0.12"
 alembic = "^1.13.3"
 sqlalchemy = "^2.0.36"
 psycopg2-binary = "^2.9.10"
-uvicorn = "^0.32.0" 
+uvicorn = "^0.32.0"
+passlib = "^1.7.4"
+PyJWT = "^2.9.0"
 
 [tool.poetry.group.dev.dependencies]
 debugpy = "^1.8.7"
