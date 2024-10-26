@@ -15,21 +15,25 @@ class User(Base):
     is_active = Column(Boolean, server_default=text("true"), nullable=False)
     created_at = Column(TIMESTAMP(timezone=True), server_default=text("now()"), nullable=False)
     role = Column(Enum("admin", "user", name="user_roles"), nullable=False, server_default="user")
-    # organization_id = Column(Integer, ForeignKey("organizations.id", ondelete="CASCADE"), nullable=True)
+    organization_id = Column(Integer, ForeignKey("organizations.id", ondelete="CASCADE"), nullable=True)
 
     wishes = relationship("Wish", back_populates="user")
-    # organization = relationship("Organization", back_populates="user")
+    organization = relationship("Organization", back_populates="user")
 
 
-# class Organization(Base):
-#     __tablename__ = "organizations"
+class Organization(Base):
+    __tablename__ = "organizations"
 
-#     id = Column(Integer, primary_key=True, nullable=False, unique=True, autoincrement=True)
-#     name = Column(Text, nullable=False)
-#     # TODO: Add more fields
-#     created_at = Column(TIMESTAMP(timezone=True), server_default=text("now()"), nullable=False)
+    id = Column(Integer, primary_key=True, nullable=False, unique=True, autoincrement=True)
+    name = Column(Text, nullable=False)
+    ico = Column(Text, nullable=False)
+    registration_number = Column(Text, nullable=True)
+    registration_office = Column(Text, nullable=True)
+    creation_date = Column(TIMESTAMP(timezone=True), nullable=True)
 
-#     user = relationship("User", back_populates="organization")
+    created_at = Column(TIMESTAMP(timezone=True), server_default=text("now()"), nullable=False)
+
+    user = relationship("User", back_populates="organization")
 
 
 class Wish(Base):

@@ -1,4 +1,5 @@
 from sqlalchemy.orm import Session
+from fastapi.security.http import HTTPAuthorizationCredentials
 
 from wishme.models.models import Wish, WishItem, Product
 from wishme.schemas.wishes import WishUpdate, WishCreate
@@ -18,7 +19,7 @@ class WishService:
 
     # Get A Wish By ID
     @staticmethod
-    def get_wish(token, db: Session, wish_id: int) -> dict:
+    def get_wish(token: HTTPAuthorizationCredentials, db: Session, wish_id: int) -> dict:
         user_id = get_current_user(token)
         wish = db.query(Wish).filter(Wish.id == wish_id, Wish.user_id == user_id).first()
 
@@ -29,7 +30,7 @@ class WishService:
 
     # Create a new Wish
     @staticmethod
-    def create_wish(token: str, db: Session, wish: WishCreate) -> dict:
+    def create_wish(token: HTTPAuthorizationCredentials, db: Session, wish: WishCreate) -> dict:
         user_id = get_current_user(token)
         wish_dict = wish.model_dump()
 
@@ -47,6 +48,7 @@ class WishService:
             wish_item = WishItem(product_id=product_id, quantity=quantity)
 
             total_amount += quantity
+            product.stock -= quantity
 
             wish_items.append(wish_item)
 
@@ -60,7 +62,7 @@ class WishService:
 
     # Update Wish & WishItem
     @staticmethod
-    def update_wish(token: str, db: Session, wish_id: int, updated_wish: WishUpdate) -> dict:
+    def update_wish(token: HTTPAuthorizationCredentials, db: Session, wish_id: int, updated_wish: WishUpdate) -> dict:
         user_id = get_current_user(token)
 
         wish = db.query(Wish).filter(Wish.id == wish_id, Wish.user_id == user_id).first()
@@ -92,7 +94,7 @@ class WishService:
 
     # Delete Both Wish and WishItems
     @staticmethod
-    def delete_wish(token: str, db: Session, wish_id: int) -> dict:
+    def delete_wish(token: HTTPAuthorizationCredentials, db: Session, wish_id: int) -> dict:
         user_id = get_current_user(token)
         wish = (
             db.query(Wish)

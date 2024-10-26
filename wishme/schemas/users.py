@@ -21,8 +21,7 @@ class UserCreate(BaseSchema):
     password: str
 
 
-class UserUpdate(UserCreate):
-    pass
+class UserUpdate(UserCreate): ...
 
 
 class UserOut(BaseSchema):
