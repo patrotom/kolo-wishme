@@ -48,6 +48,7 @@ class WishService:
             wish_item = WishItem(product_id=product_id, quantity=quantity)
 
             total_amount += quantity
+            product.stock -= quantity
 
             wish_items.append(wish_item)
 
