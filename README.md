@@ -46,6 +46,10 @@ The installation of the application is straightforward since it is dockerized. T
 
 All done! The application is available under <http://0.0.0.0:8000>. You can test the API and see docs via [Swagger](https://swagger.io/tools/swagger-ui/) when you access <http://0.0.0.0:8000/docs>.
 
+## Docs
+
+Docs are deployed and accessible at the [following link](https://patrotom.github.io/kolo-wishme/#/).
+
 ## License
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
